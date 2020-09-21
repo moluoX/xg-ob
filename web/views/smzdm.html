@@ -1,0 +1,78 @@
+{{define "smzdm"}}
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>什么值得买</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.css"
+    />
+  </head>
+  <body>
+    <table
+      data-toggle="table"
+      data-ajax="ajaxRequest"
+      data-pagination="true"
+      data-side-pagination="server"
+      data-page-size="10"
+      data-search="true"
+      data-sortable="false"
+    >
+      <thead>
+        <tr>
+          <th data-field="article_worthy">值</th>
+          <th data-field="article_unworthy">不值</th>
+          <th data-field="article_collection">收藏</th>
+          <th data-field="article_comment">评论</th>
+          <th data-field="article_title">title</th>
+          <th data-field="article_price">Price</th>
+          <th data-field="Time">Time</th>
+        </tr>
+      </thead>
+    </table>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.15.3/dist/locale/bootstrap-table-zh-CN.min.js"></script>
+
+    <script>
+      $(function () {
+        $.extend(
+          $.fn.bootstrapTable.Defaults,
+          $.fn.bootstrapTable.locales["zh-CN"]
+        );
+      });
+
+      function ajaxRequest(params) {
+        var url = "smzdm/list";
+        $.get(url + "?" + $.param(params.data)).then(function (res) {
+          params.success(res);
+        });
+      }
+    </script>
+  </body>
+</html>
+{{end}}
