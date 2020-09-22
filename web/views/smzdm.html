@@ -26,9 +26,10 @@
       data-ajax="ajaxRequest"
       data-pagination="true"
       data-side-pagination="server"
-      data-page-size="10"
+      data-page-size="15"
       data-search="true"
       data-sortable="false"
+      data-height="870"
     >
       <thead>
         <tr>
@@ -67,8 +68,7 @@
       });
 
       function ajaxRequest(params) {
-        var url = "smzdm/list";
-        $.get(url + "?" + $.param(params.data)).then(function (res) {
+        $.get("smzdm/list?" + $.param(params.data)).then(function (res) {
           params.success(res);
         });
       }

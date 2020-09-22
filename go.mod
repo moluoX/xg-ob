@@ -5,7 +5,9 @@ go 1.15
 require (
 	github.com/denisenkom/go-mssqldb v0.0.0-20200910202707-1e08a3fab204
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
-	github.com/labstack/echo v3.3.10+incompatible // indirect
+	github.com/fatih/color v1.9.0 // indirect
+	github.com/jessevdk/go-flags v1.4.0 // indirect
+	github.com/labstack/echo v3.3.10+incompatible
 	github.com/labstack/echo/v4 v4.1.17
 	github.com/labstack/gommon v0.3.0 // indirect
 	github.com/mattn/go-colorable v0.1.7 // indirect

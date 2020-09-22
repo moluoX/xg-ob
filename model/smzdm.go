@@ -1,6 +1,7 @@
 package model
 
 import (
+	"encoding/json"
 	"time"
 )
 
@@ -31,4 +32,17 @@ type SmzdmArticle struct {
 type SmzdmArticlePaged struct {
 	Rows  []SmzdmArticle `json:"rows"`
 	Total int64          `json:"total"`
+}
+
+//MarshalJSON Marshaler interface
+func (a SmzdmArticle) MarshalJSON() ([]byte, error) {
+	type SmzdmArticleAlias SmzdmArticle
+	b := struct {
+		SmzdmArticleAlias
+		Time string `json:"Time"`
+	}{
+		SmzdmArticleAlias: (SmzdmArticleAlias)(a),
+		Time:              a.Time.Format("2006-01-02 15:04:05"),
+	}
+	return json.Marshal(b)
 }

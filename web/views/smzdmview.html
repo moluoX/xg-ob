@@ -1,0 +1,138 @@
+{{define "smzdmview"}}
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="referrer" content="no-referrer" />
+    <title>什么值得买</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+
+    <style>
+      .media {
+        padding: 10px;
+      }
+      .media img {
+        width: 200px;
+        height: 200px;
+      }
+      .x-num span {
+        margin-right: 10px;
+      }
+      .x-worthy {
+        color: green;
+      }
+      .x-unworthy {
+        color: red;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <ul class="list-unstyled col-xl-12" id="ul">
+          <li class="media" style="display: none" id="li">
+            <img
+              referrer="no-referrer|origin|unsafe-url"
+              src=""
+              class="mr-3"
+              alt=""
+            />
+            <div class="media-body">
+              <h5 class="mt-0 mb-1"><a class="x-a-url" target="_blank"></a></h5>
+              <p class="x-price"></p>
+              <p class="x-num">
+                <span class="x-worthy-rate"></span>
+                <span class="x-worthy"></span>
+                <span class="x-unworthy"></span>
+                <span class="x-collection"></span>
+                <span class="x-comment"></span>
+              </p>
+              <p class="x-url">
+                <a class="x-a-link" target="_blank"></a>
+              </p>
+              <p class="x-time"></p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="row">
+        <div class="col-xl-12" style="text-align: center; padding: 10px">
+          <button
+            type="button"
+            class="btn btn-primary"
+            style="width: 100%"
+            onclick="list();"
+          >
+            更多...
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      $(function () {
+        list();
+      });
+
+      var _offset = 0,
+        _limit = 20;
+      function list() {
+        $.getJSON("list?offset=" + _offset + "&limit=" + _limit, function (
+          res
+        ) {
+          $.each(res.rows, function (i, n) {
+            var ele = $("#li").clone();
+            ele.attr("id", "");
+            ele.find("img").attr("src", n.article_pic_url);
+            ele
+              .find(".x-a-url")
+              .attr("href", n.article_url)
+              .text(n.article_title);
+            ele.find(".x-price").text(n.article_price);
+            ele
+              .find(".x-worthy-rate")
+              .text(calRate(n.article_worthy, n.article_unworthy) + "%");
+            ele.find(".x-worthy").text(n.article_worthy);
+            ele.find(".x-unworthy").text(n.article_unworthy);
+            ele.find(".x-collection").text(n.article_collection);
+            ele.find(".x-comment").text(n.article_comment);
+            ele
+              .find(".x-a-link")
+              .attr("href", n.article_link)
+              .text(n.article_mall);
+            ele.find(".x-time").text(n.Time);
+            $("#ul").append(ele.show());
+          });
+        });
+        _offset += _limit;
+      }
+
+      function calRate(a, b) {
+        return a + b == 0 ? 0 : ((100 * a) / (a + b)).toFixed(0);
+      }
+    </script>
+  </body>
+</html>
+{{end}}

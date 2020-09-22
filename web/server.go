@@ -15,6 +15,7 @@ func Run() {
 		return c.String(http.StatusOK, "Hello, World!")
 	})
 	e.GET("/smzdm", smzdm)
+	e.GET("/smzdm/view", smzdmview)
 	e.GET("/smzdm/list", listSmzdm)
 
 	t := &Template{
@@ -22,6 +23,7 @@ func Run() {
 	}
 	e.Renderer = t
 
+	Wrap(e)
 	e.Logger.Fatal(e.Start(":9998"))
 }
 

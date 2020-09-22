@@ -12,7 +12,11 @@ import (
 )
 
 func smzdm(c echo.Context) error {
-	return c.Render(http.StatusOK, "smzdm", "World")
+	return c.Render(http.StatusOK, "smzdm", nil)
+}
+
+func smzdmview(c echo.Context) error {
+	return c.Render(http.StatusOK, "smzdmview", nil)
 }
 
 func listSmzdm(c echo.Context) error {
