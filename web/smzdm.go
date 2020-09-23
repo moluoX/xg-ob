@@ -1,7 +1,6 @@
 package web
 
 import (
-	"log"
 	"net/http"
 	"strconv"
 
@@ -9,6 +8,7 @@ import (
 
 	"github.com/moluoX/xg-ob/dataaccess"
 	"github.com/moluoX/xg-ob/model"
+	"github.com/moluoX/xg-ob/xlog"
 )
 
 func smzdm(c echo.Context) error {
@@ -38,6 +38,6 @@ func listSmzdm(c echo.Context) error {
 
 func handleErr(err error) {
 	if err != nil {
-		log.Printf("[web smzdm error] %v\n", err)
+		xlog.SugarLogger.Errorf("[web smzdm error] %v\n", err)
 	}
 }

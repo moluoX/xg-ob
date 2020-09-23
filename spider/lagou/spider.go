@@ -3,9 +3,10 @@ package lagou
 import (
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"net/url"
+
+	"github.com/moluoX/xg-ob/xlog"
 )
 
 //Crawl lagou
@@ -24,7 +25,7 @@ func crawlOnce() {
 }
 
 func handleErr(err error) {
-	if err != nil {
-		log.Fatal(err)
+	if err != nil && err.Error() != "EOF" {
+		xlog.SugarLogger.Errorf("[crawl lagou error] %v\n", err)
 	}
 }

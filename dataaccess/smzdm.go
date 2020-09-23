@@ -1,10 +1,10 @@
 package dataaccess
 
 import (
-	"log"
 	//mssql driver
 	_ "github.com/denisenkom/go-mssqldb"
 	"github.com/moluoX/xg-ob/model"
+	"github.com/moluoX/xg-ob/xlog"
 )
 
 //SaveArticle save Article
@@ -36,6 +36,6 @@ func ListArticle(limit int, start int, title string) ([]model.SmzdmArticle, int6
 
 func handleErr(err error) {
 	if err != nil {
-		log.Printf("[dataaccess smzdm error] %v\n", err)
+		xlog.SugarLogger.Errorf("[dataaccess smzdm error] %v\n", err)
 	}
 }

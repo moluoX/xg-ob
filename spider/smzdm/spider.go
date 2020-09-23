@@ -5,29 +5,36 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"time"
 
 	"github.com/moluoX/xg-ob/dataaccess"
 	"github.com/moluoX/xg-ob/model"
+	"github.com/moluoX/xg-ob/xlog"
 )
 
 //Crawl auto
 func Crawl() {
-	for {
-		crawlOnce()
+	ch := make(chan bool)
+	go crawlOnce(ch)
+	for range ch {
+		go crawlOnce(ch)
 	}
 }
 
-func crawlOnce() {
+func crawlOnce(ch chan bool) {
+	xlog.SugarLogger.Infof("[crawlOnce smzdm]")
 	for i := 0; i < 100; i++ {
 		time.Sleep(1 * time.Second)
 		crawlPage(i)
+		if i == 9 {
+			ch <- true
+		}
 	}
 }
 
 func crawlPage(page int) {
+	xlog.SugarLogger.Infof("[crawlPage smzdm] %d", page)
 	res, err := http.Get(fmt.Sprintf("https://www.smzdm.com/jingxuan/json_more?filter=s0f0t0b0d0r0p%d", page))
 	handleErr(err)
 	go analyzePage(res.Body)
@@ -57,6 +64,6 @@ func analyzeArticle(m model.SmzdmArticle) {
 
 func handleErr(err error) {
 	if err != nil && err.Error() != "EOF" {
-		log.Printf("[crawl smzdm error] %v\n", err)
+		xlog.SugarLogger.Errorf("[crawl smzdm error] %v", err)
 	}
 }

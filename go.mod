@@ -11,10 +11,13 @@ require (
 	github.com/labstack/echo/v4 v4.1.17
 	github.com/labstack/gommon v0.3.0 // indirect
 	github.com/mattn/go-colorable v0.1.7 // indirect
+	github.com/natefinch/lumberjack v2.0.0+incompatible
+	github.com/sirupsen/logrus v1.6.0
 	github.com/valyala/fasttemplate v1.2.1 // indirect
+	go.uber.org/zap v1.16.0
 	golang.org/x/crypto v0.0.0-20200820211705-5c72a883971a // indirect
 	golang.org/x/net v0.0.0-20200904194848-62affa334b73 // indirect
-	golang.org/x/sys v0.0.0-20200918174421-af09f7315aff // indirect
+	golang.org/x/sys v0.0.0-20200922070232-aee5d888a860 // indirect
 	golang.org/x/text v0.3.3 // indirect
 	xorm.io/xorm v1.0.5
 )
